@@ -11,7 +11,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"FullStackShopProj/backend/internal/database"
+	"FullStackShopProj/internal/database"
 
 	"github.com/joho/godotenv"
 )

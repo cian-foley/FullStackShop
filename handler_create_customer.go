@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"FullStackShopProj/backend/internal/database"
+	"FullStackShopProj/internal/database"
 
 	"github.com/google/uuid"
 )
