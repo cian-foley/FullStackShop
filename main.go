@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"sync/atomic"
 
 	_ "github.com/lib/pq"
@@ -19,10 +20,10 @@ type apiConfig struct {
 
 func main() {
 	const filepathRoot = "."
-	const PORT = "8080"
-	const DB_URL = "postgres://postgres:postgres@localhost:5432/fullstackshop"
+	port := os.Getenv("PORT")
+	dbUrl := os.Getenv("DB_URL")
 
-	dbConn, err := sql.Open("postgres", DB_URL)
+	dbConn, err := sql.Open("postgres", dbUrl)
 	if err != nil {
 		log.Fatalf("Error opening database: %s", err)
 	}
@@ -43,11 +44,11 @@ func main() {
 	mux.HandleFunc("GET /api/user", apiCfg.handlerCreateUser)
 
 	srv := &http.Server{
-		Addr:    ":" + PORT,
+		Addr:    ":" + port,
 		Handler: mux,
 	}
 
-	log.Printf("Serving files from %s on port: %s\n", filepathRoot, PORT)
+	log.Printf("Serving files from %s on port: %s\n", filepathRoot, port)
 	log.Fatal(srv.ListenAndServe())
 }
 
