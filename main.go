@@ -23,7 +23,10 @@ type apiConfig struct {
 func main() {
 	const filepathRoot = "."
 
-	godotenv.Load(".env")
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Couldn't find '.env' file: %v", err)
+	}
 	port := os.Getenv("PORT")
 	dbUrl := os.Getenv("DB_URL")
 
